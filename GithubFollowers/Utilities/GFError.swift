@@ -13,4 +13,5 @@ enum GFError: String, Error {
     case invalidResponse = "Invalid response from server"
     case invalidData = "The data received from server was invalid"
     
+    case invalidUrl = "The url received was invalid"
 }

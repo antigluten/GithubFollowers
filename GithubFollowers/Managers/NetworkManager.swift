@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
-class NetworkManager {
+// optimization with method dispatch
+final class NetworkManager {
     static let shared = NetworkManager()
     
     let baseUrl = "https://api.github.com/users/"
@@ -46,6 +48,34 @@ class NetworkManager {
             } catch {
                 completion(.failure(.invalidData))
             }
+        }
+        
+        task.resume()
+    }
+    
+    func download(from url: String, completion: @escaping (Result<Data, GFError>) -> Void ) {
+        guard let url = URL(string: url) else {
+            completion(.failure(.invalidUrl))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard error == nil else {
+                completion(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.invalidData))
+                return
+            }
+
+            completion(.success(data))
         }
         
         task.resume()

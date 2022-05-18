@@ -73,8 +73,7 @@ class FollowerListViewController: UIViewController {
         view.addSubview(collectionView)
         
         collectionView.frame = view.bounds
-        
-        collectionView.collectionViewLayout = GFColumnFlowLayout(with: view.bounds.width)
+        collectionView.collectionViewLayout = GFColumnFlowLayout(in: view)
     }
     
     // MARK: - CollectionViewDiffableDataSource
@@ -86,6 +85,19 @@ class FollowerListViewController: UIViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.identifier, for: indexPath) as? FollowerCell else {
                     fatalError()
                 }
+                
+                NetworkManager.shared.download(from: follower.avatarUrl) { result in
+                    switch result {
+                    case .success(let data):
+                        let image = UIImage(data: data)
+                        DispatchQueue.main.async {
+                            cell.set(image: image)
+                        }
+                    case .failure(let error):
+                        fatalError(error.rawValue)
+                    }
+                }
+                
                 cell.set(follower: follower)
                 
                 return cell
@@ -106,14 +118,15 @@ class FollowerListViewController: UIViewController {
     
     func getFollowers() {
         NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let followers):
                 DispatchQueue.main.async {
-                    self?.followers = followers
-                    self?.updateData()
+                    self.followers = followers
+                    self.updateData()
                 }
             case .failure(let error):
-                self?.presentGFAlertOnMainAlert(title: "Bad stuff", message: error.rawValue, buttonTitle: "Ok")
+                self.presentGFAlertOnMainAlert(title: "Bad stuff", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
