@@ -16,6 +16,8 @@
 		A7CACE652830353B00A82803 /* GFAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CACE642830353B00A82803 /* GFAlertViewController.swift */; };
 		A7D148D52832FC3500580126 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D148D42832FC3500580126 /* NetworkManager.swift */; };
 		A7D148D82833BCF000580126 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D148D72833BCF000580126 /* GFError.swift */; };
+		A7D148DE2833C29C00580126 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D148DD2833C29C00580126 /* FollowerCell.swift */; };
+		A7D148E02833C32000580126 /* GFAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D148DF2833C32000580126 /* GFAvatarImageView.swift */; };
 		A7F9F6CE282EB83C006157DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F9F6CD282EB83C006157DA /* AppDelegate.swift */; };
 		A7F9F6D0282EB83C006157DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F9F6CF282EB83C006157DA /* SceneDelegate.swift */; };
 		A7F9F6D7282EB83E006157DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F9F6D6282EB83E006157DA /* Assets.xcassets */; };
@@ -36,6 +38,8 @@
 		A7CACE642830353B00A82803 /* GFAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAlertViewController.swift; sourceTree = "<group>"; };
 		A7D148D42832FC3500580126 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A7D148D72833BCF000580126 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
+		A7D148DD2833C29C00580126 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		A7D148DF2833C32000580126 /* GFAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAvatarImageView.swift; sourceTree = "<group>"; };
 		A7F9F6CA282EB83C006157DA /* GithubFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F9F6CD282EB83C006157DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7F9F6CF282EB83C006157DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,10 +77,12 @@
 		A7BFCFED28319F5000C7B855 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A7D148D92833C26400580126 /* Cells */,
 				A7CACE602830324E00A82803 /* GFTitleLabel.swift */,
 				A7CACE62283033DD00A82803 /* GFBodyLabel.swift */,
 				A7F9F6E5282F855C006157DA /* GFButton.swift */,
 				A7F9F6E7282F8BE7006157DA /* GFTextField.swift */,
+				A7D148DF2833C32000580126 /* GFAvatarImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -123,6 +129,14 @@
 				A7D148D72833BCF000580126 /* GFError.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A7D148D92833C26400580126 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A7D148DD2833C29C00580126 /* FollowerCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		A7F9F6C1282EB83C006157DA = {
@@ -188,6 +202,7 @@
 				TargetAttributes = {
 					A7F9F6C9282EB83C006157DA = {
 						CreatedOnToolsVersion = 13.3;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -231,8 +246,10 @@
 				A7BFCFE92831211500C7B855 /* UIViewController+Extension.swift in Sources */,
 				A7F9F6E8282F8BE7006157DA /* GFTextField.swift in Sources */,
 				A7F9F6E2282EBF7C006157DA /* SearchViewController.swift in Sources */,
+				A7D148E02833C32000580126 /* GFAvatarImageView.swift in Sources */,
 				A7F9F6E6282F855C006157DA /* GFButton.swift in Sources */,
 				A7CACE5F282FC90100A82803 /* FollowerListViewController.swift in Sources */,
+				A7D148DE2833C29C00580126 /* FollowerCell.swift in Sources */,
 				A7D148D82833BCF000580126 /* GFError.swift in Sources */,
 				A7CACE63283033DD00A82803 /* GFBodyLabel.swift in Sources */,
 				A7BFD01728326B7400C7B855 /* Follower.swift in Sources */,
@@ -377,6 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WMWSB972VT;
@@ -396,6 +414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.antigluten.GithubFollowers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -406,6 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WMWSB972VT;
