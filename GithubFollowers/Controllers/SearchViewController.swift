@@ -12,11 +12,6 @@ class SearchViewController: UIViewController {
     let logoImageView = UIImageView()
     let usernameTextField = GFTextField()
     let submitButton = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
-    
-    var isUsernameEntered: Bool {
-        // force unwraping can crash the app
-        return !(usernameTextField.text?.isEmpty ?? true)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,20 +45,13 @@ class SearchViewController: UIViewController {
     
     @objc
     func pushFollowerViewController() {
-//        guard isUsernameEntered else {
-//            print("No user name")
-//            presentGFAlertOnMainAlert(title: "Empty username", message: "Please enter a username.", buttonTitle: "Ok")
-//            return
-//        }
-        
-        guard let userName = usernameTextField.text, !userName.isEmpty else {
+        guard let username = usernameTextField.text, !username.isEmpty else {
             presentGFAlertOnMainAlert(title: "Empty username", message: "Please enter a username.", buttonTitle: "Ok")
             return
         }
-        
-        let followerVC = FollowerListViewController()
-        followerVC.username = usernameTextField.text
-        followerVC.title = usernameTextField.text
+    
+        let followerVC = FollowerListViewController(with: username)
+        followerVC.title = username
         navigationController?.pushViewController(followerVC, animated: true)
     }
     

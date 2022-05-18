@@ -28,9 +28,6 @@ class GFAvatarImageView: UIImageView {
         clipsToBounds = true
         
         contentMode = .scaleToFill
-        
-        
         image = placeholderImage
-        
     }
 }

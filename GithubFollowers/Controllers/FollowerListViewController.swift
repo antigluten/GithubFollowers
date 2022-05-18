@@ -9,21 +9,31 @@ import UIKit
 
 class FollowerListViewController: UIViewController {
     
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Follower>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Follower>
+    
     enum Section {
         case main
     }
     
+    
     var followers = [Follower]()
+    var username: String
     
-    // MARK: - Should refactor this section of code
-    /// Force unwraping can cause a crash
-    ///
-    var username: String!
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+    let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        
+        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.identifier)
+        collectionView.backgroundColor = .systemBackground
+
+        return collectionView
+    }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    lazy var dataSource = makeDataSource()
+    
+    init(with username: String) {
+        self.username = username
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -46,9 +56,8 @@ class FollowerListViewController: UIViewController {
     }
     
     func setup() {
-        configureCollectionView()
+        setupCollectionView()
         configureViewController()
-        createDataSource()
         
         getFollowers()
     }
@@ -58,45 +67,20 @@ class FollowerListViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    // MARK: - Collection View
-    
-    func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
-    
-        view.addSubview(collectionView)
-        collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.identifier)
-        collectionView.backgroundColor = .systemBackground
-        
-        
-    }
-    
     // MARK: - CollectionViewFlowLayout
     
-    func createThreeColumnFlowLayout() -> UICollectionViewFlowLayout {
-        let width = view.bounds.width
-
-        let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth = width - (2 * minimumItemSpacing) - (2 * padding)
-        let itemWidth = availableWidth / 3
-        let labelHeight: CGFloat = 20
-        let itemHeight: CGFloat = itemWidth + (2 * minimumItemSpacing) + labelHeight
-
-
-
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+    func setupCollectionView() {
+        view.addSubview(collectionView)
         
-//        flowLayout.scrollDirection = .vertical
+        collectionView.frame = view.bounds
         
-        return flowLayout
+        collectionView.collectionViewLayout = GFColumnFlowLayout(with: view.bounds.width)
     }
     
     // MARK: - CollectionViewDiffableDataSource
     
-    func createDataSource() {
-        dataSource = UICollectionViewDiffableDataSource(
+    func makeDataSource() -> DataSource {
+        let dataSource = DataSource(
             collectionView: collectionView,
             cellProvider: { collectionView, indexPath, follower in
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.identifier, for: indexPath) as? FollowerCell else {
@@ -107,10 +91,12 @@ class FollowerListViewController: UIViewController {
                 return cell
             }
         )
+        
+        return dataSource
     }
     
     func updateData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Follower>()
+        var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(followers)
         dataSource.apply(snapshot, animatingDifferences: true)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7491B862834E90300239C3C /* GFColumnFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7491B852834E90300239C3C /* GFColumnFlowLayout.swift */; };
 		A7BFCFE92831211500C7B855 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BFCFE82831211500C7B855 /* UIViewController+Extension.swift */; };
 		A7BFD01728326B7400C7B855 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BFD01628326B7400C7B855 /* Follower.swift */; };
 		A7BFD01928326C1000C7B855 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BFD01828326C1000C7B855 /* User.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A7491B852834E90300239C3C /* GFColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFColumnFlowLayout.swift; sourceTree = "<group>"; };
 		A7BFCFE82831211500C7B855 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		A7BFD01628326B7400C7B855 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		A7BFD01828326C1000C7B855 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				A7F9F6E5282F855C006157DA /* GFButton.swift */,
 				A7F9F6E7282F8BE7006157DA /* GFTextField.swift */,
 				A7D148DF2833C32000580126 /* GFAvatarImageView.swift */,
+				A7491B852834E90300239C3C /* GFColumnFlowLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				A7F9F6E8282F8BE7006157DA /* GFTextField.swift in Sources */,
 				A7F9F6E2282EBF7C006157DA /* SearchViewController.swift in Sources */,
 				A7D148E02833C32000580126 /* GFAvatarImageView.swift in Sources */,
+				A7491B862834E90300239C3C /* GFColumnFlowLayout.swift in Sources */,
 				A7F9F6E6282F855C006157DA /* GFButton.swift in Sources */,
 				A7CACE5F282FC90100A82803 /* FollowerListViewController.swift in Sources */,
 				A7D148DE2833C29C00580126 /* FollowerCell.swift in Sources */,
