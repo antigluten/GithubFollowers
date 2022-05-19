@@ -15,10 +15,12 @@ class FollowerListViewController: UIViewController {
     enum Section {
         case main
     }
-    
-    
+        
     var followers = [Follower]()
     var username: String
+    var page = 1
+    
+    var hasMoreFollowers = true
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -59,7 +61,7 @@ class FollowerListViewController: UIViewController {
         setupCollectionView()
         configureViewController()
         
-        getFollowers()
+        getFollowers(username: username, page: page)
     }
     
     func configureViewController() {
@@ -72,6 +74,7 @@ class FollowerListViewController: UIViewController {
     func setupCollectionView() {
         view.addSubview(collectionView)
         
+        collectionView.delegate = self
         collectionView.frame = view.bounds
         collectionView.collectionViewLayout = GFColumnFlowLayout(in: view)
     }
@@ -85,16 +88,15 @@ class FollowerListViewController: UIViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.identifier, for: indexPath) as? FollowerCell else {
                     fatalError()
                 }
-                
-                NetworkManager.shared.download(from: follower.avatarUrl) { result in
+                                
+                NetworkManager.shared.downloadImage(from: follower.avatarUrl) { result in
                     switch result {
-                    case .success(let data):
-                        let image = UIImage(data: data)
+                    case .success(let image):
                         DispatchQueue.main.async {
                             cell.set(image: image)
                         }
                     case .failure(let error):
-                        fatalError(error.rawValue)
+                        print(error.rawValue)
                     }
                 }
                 
@@ -116,18 +118,38 @@ class FollowerListViewController: UIViewController {
     
     // MARK: - LOGIC?
     
-    func getFollowers() {
-        NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+    func getFollowers(username: String, page: Int) {
+        NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let followers):
+                if followers.count < 100 { self.hasMoreFollowers = false }
                 DispatchQueue.main.async {
-                    self.followers = followers
+                    self.followers += followers
                     self.updateData()
                 }
             case .failure(let error):
                 self.presentGFAlertOnMainAlert(title: "Bad stuff", message: error.rawValue, buttonTitle: "Ok")
             }
+        }
+    }
+}
+
+extension FollowerListViewController: UICollectionViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        let height = scrollView.frame.height
+        
+        if offsetY > contentHeight - height {
+            guard hasMoreFollowers else {
+                print("There are no more followers")
+                return
+            }
+            page += 1
+            print("Incrementing page \(page)")
+            getFollowers(username: username, page: page)
         }
     }
 }
