@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        customTabBarApperance()
+//        customTabBarApperance()
         customNavigationApperance()
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -64,12 +64,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func customNavigationApperance() {
-        let navigationApperance = UINavigationBarAppearance()
-        
-        navigationApperance.configureWithDefaultBackground()
-        navigationApperance.backgroundColor = UIColor.secondarySystemBackground
-        UINavigationBar.appearance().standardAppearance = navigationApperance
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationApperance
+//        let navigationApperance = UINavigationBarAppearance()
+//
+//        navigationApperance.configureWithDefaultBackground()
+//        navigationApperance.backgroundColor = UIColor.secondarySystemBackground
+//        UINavigationBar.appearance().standardAppearance = navigationApperance
+//        UINavigationBar.appearance().scrollEdgeAppearance = navigationApperance
         
         UINavigationBar.appearance().tintColor = .green
     }
