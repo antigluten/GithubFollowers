@@ -11,7 +11,7 @@ class SearchViewController: UIViewController {
     
     let logoImageView = UIImageView()
     let usernameTextField = GFTextField()
-    let submitButton = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
+    let submitButton = GFButton(backgroundColor: .link, title: "Get Followers")
 
     override func viewDidLoad() {
         super.viewDidLoad()

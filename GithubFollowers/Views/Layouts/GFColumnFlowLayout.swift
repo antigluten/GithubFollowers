@@ -9,16 +9,17 @@ import UIKit
 
 class GFColumnFlowLayout: UICollectionViewFlowLayout {
     
-    init(with width: CGFloat) {
+    init(in view: UIView) {
         super.init()
-        configure(width: width)
+        configure(in: view)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(width: CGFloat) {
+    private func configure(in view: UIView) {
+        let width = view.bounds.width
         let padding: CGFloat = 12
         let minimumItemSpacing: CGFloat = 10
         let availableWidth = width - (2 * minimumItemSpacing) - (2 * padding)
