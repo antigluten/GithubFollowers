@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabBar() -> UITabBarController {
         let tabBarController = UITabBarController()
-        UITabBar.appearance().tintColor = .systemGreen
+//        UITabBar.appearance().tintColor = .systemGreen
         tabBarController.viewControllers = [
             createSearchNavigationController(),
             createFavoriteNavigationController()
@@ -71,7 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        UINavigationBar.appearance().standardAppearance = navigationApperance
 //        UINavigationBar.appearance().scrollEdgeAppearance = navigationApperance
         
-        UINavigationBar.appearance().tintColor = .green
+//        UINavigationBar.appearance().tintColor = .green
     }
 
     
